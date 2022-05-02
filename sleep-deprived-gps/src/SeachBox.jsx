@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import L from 'leaflet';
 
 const NOMINATIM_BASE_URL = "https://nominatim.openstreetmap.org/search?";
 const params = {
@@ -6,6 +7,10 @@ const params = {
     format: 'json',
     addressdetails: 'addressdetails',
 };
+
+function setMarker() {
+    
+}
 
 function SearchBox(props) {
     const { selectPosition, setSelectPosition } = props;

@@ -8,6 +8,7 @@ import SearchBox from './SeachBox';
 
 const center = [42.360081, -71.058884];
 const zoom = 13
+var marker;
 
 //Move map to detected location and set marker there
 //TODO: Change to a button
@@ -62,8 +63,20 @@ function App() {
     const [map, setMap] = useState(null);
     const [selectPosition, setSelectPosition] = useState(null);
     const locationSelection = [selectPosition?.lat, selectPosition?.lon];
-    if (selectPosition?.lat != null && selectPosition?.lon != null)
-        var marker = L.marker([selectPosition?.lat, selectPosition?.lon]).addTo(map);
+
+    console.log("marker:" + marker);
+    var count = 0;
+
+    if (marker) {
+        map.removeLayer(marker);
+    }
+
+    if (selectPosition?.lat != null && selectPosition?.lon != null) {
+        marker = new L.marker([selectPosition?.lat, selectPosition?.lon]);
+        map.addLayer(marker);
+        count += 1;
+    }
+    
 
     const displayMap = useMemo(
         () => (

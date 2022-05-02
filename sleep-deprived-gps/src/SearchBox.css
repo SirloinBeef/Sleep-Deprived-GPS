@@ -1,0 +1,13 @@
+.searchbox-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.list-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.list-button:hover {
+    background-color: purple;
+}

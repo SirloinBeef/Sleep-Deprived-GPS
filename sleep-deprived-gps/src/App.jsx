@@ -1,5 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
+import L from 'leaflet';
+
+import './App.css'
+import SearchBox from './SeachBox';
 
 
 const center = [42.360081, -71.058884];
@@ -36,10 +40,6 @@ function LocationMarker() {
 function DisplayPosition({map}) {
     const [position, setPosition] = useState(() => map.getCenter());
 
-    const onClick = useCallback(() => {
-        map.setView(center, zoom)
-    }, [map]);
-
     const onMove = useCallback(() => {
         setPosition(map.getCenter())
     }, [map]);
@@ -54,23 +54,33 @@ function DisplayPosition({map}) {
     return (
         <p>
             latitude: {position.lat.toFixed(4)}, longitude: {position.lng.toFixed(4)}{' '}
-            <button onclick={onClick}>reset</button>
         </p>
     );
 }
 
 function App() {
     const [map, setMap] = useState(null);
+    const [selectPosition, setSelectPosition] = useState(null);
+    const locationSelection = [selectPosition?.lat, selectPosition?.lon];
+    console.log(locationSelection)
 
     const displayMap = useMemo(
         () => (
             <MapContainer 
                 center={center}
-                zoom={zoom}>
+                zoom={zoom}
+                ref={setMap}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 />
+                {selectPosition && (
+                    <Marker position={locationSelection}>
+                        <Popup>
+                            Text
+                        </Popup>
+                    </Marker>
+                )}
                 <LocationMarker />
             </MapContainer>
         ),
@@ -78,47 +88,14 @@ function App() {
     );
 
     return (
-        <div>
-            {map ? <DisplayPosition map={map} /> : null}
+        <div className="map-container">
             {displayMap}
+            <div className="ui-container">
+                <SearchBox selectPosition={selectPosition} setSelectPosition={setSelectPosition} />
+                {map ? <DisplayPosition map={map} /> : null}
+            </div>
         </div>
     );
 }
-/*
-class App extends React.Component {
-    render(){
-        const longitude = this.props.coords ? this.props.coords.longitude : DEFAULT_LONGITUDE;
-        const latitude = this.props.coords ? this.props.coords.latitude : DEFAULT_LATITUDE;
-    
-        return (
-            <MapContainer center={[longitude, latitude]}
-                zoom={12}>
-                <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                />
-                {
-                    !this.props.coords ?
-                    <div className="loading">Loading</div> :
-                    <Marker
-                        position={[longitude, latitude]}
-                    >
-                        <Popup>
-                            You are here!
-                        </Popup>
-                    </Marker>
-                }
-                <LocationMarker />
-            </MapContainer>
-        );    
-    }
-}
 
-export default geolocated({
-    positionOptions:{
-        enableHighAccuracy: false
-    },
-    useDecisionTimeout: 10000
-})(App);
-*/
 export default App

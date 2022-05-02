@@ -62,7 +62,8 @@ function App() {
     const [map, setMap] = useState(null);
     const [selectPosition, setSelectPosition] = useState(null);
     const locationSelection = [selectPosition?.lat, selectPosition?.lon];
-    console.log(locationSelection)
+    if (selectPosition?.lat != null && selectPosition?.lon != null)
+        var marker = L.marker([selectPosition?.lat, selectPosition?.lon]).addTo(map);
 
     const displayMap = useMemo(
         () => (

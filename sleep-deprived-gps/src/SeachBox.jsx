@@ -8,9 +8,6 @@ const params = {
     addressdetails: 'addressdetails',
 };
 
-function setMarker() {
-    
-}
 
 function SearchBox(props) {
     const { selectPosition, setSelectPosition } = props;
@@ -61,7 +58,11 @@ function SearchBox(props) {
                                     Icon
                                 </div>
                                 <div>
-                                    <p className="list-location">{item?.display_name}</p>
+                                    <p className="list-location" onClick={() => {
+                                        console.log(selectPosition)
+                                        console.log(selectPosition?.lat)
+                                        console.log(selectPosition?.lon)
+                                    }}>{item?.display_name}</p>
                                 </div>
                             </div>
                         </div>

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import L from 'leaflet';
 import { TextField } from "@mui/material";
-import { Button } from "@mui/material";
 import { List, ListItem, ListItemIcon, ListItemText, Divider } from "@mui/material";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 const NOMINATIM_BASE_URL = "https://nominatim.openstreetmap.org/search?";
 const params = {
@@ -94,22 +95,24 @@ function SearchBox(props) {
                     }}
                 />
             </div>
-            <List component="nav" aria-label="main mailbox folders">
-                {listPlace.map((item) => {
-                    return (
-                        <div key={item?.osm_id}>
-                            <ListItem button onClick={() => {
-                                setSelectPosition(item);
-                            }}>
-                                <ListItemIcon>
-                                    Icon
-                                </ListItemIcon>
-                                <ListItemText primary={item?.display_name} />
-                            </ListItem>
-                            <Divider />
-                        </div>
-                    );
-                })}
+            <List component="nav" aria-label="main mailbox folders" style={{ height: "76vh", overflow: "hidden" }}>
+                <Scrollbars autoHide>
+                    {listPlace.map((item) => {
+                        return (
+                            <div key={item?.osm_id}>
+                                <ListItem button onClick={() => {
+                                    setSelectPosition(item);
+                                }}>
+                                    <ListItemIcon>
+                                        <LocationOnIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary={item?.display_name} />
+                                </ListItem>
+                                <Divider />
+                            </div>
+                        );
+                    })}
+                </Scrollbars>
             </List>
         </div>
     );

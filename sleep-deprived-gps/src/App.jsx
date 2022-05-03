@@ -104,7 +104,9 @@ function App() {
         <div className="map-container">
             {displayMap}
             <div className="ui-container">
-                <SearchBox selectPosition={selectPosition} setSelectPosition={setSelectPosition} />
+                <div style={{ height: "92vh" }} >
+                    <SearchBox selectPosition={selectPosition} setSelectPosition={setSelectPosition} />
+                </div>
                 {map ? <DisplayPosition map={map} /> : null}
             </div>
         </div>

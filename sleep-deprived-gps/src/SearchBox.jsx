@@ -15,6 +15,7 @@ const params = {
 function SearchBox(props) {
     const { selectPosition, setSelectPosition } = props;
     const [searchText, setSearchText] = useState("");
+    const [searchText2, setSearchText2] = useState("");
     const [listPlace, setListPlace] = useState([]);
 
     return (
@@ -64,15 +65,15 @@ function SearchBox(props) {
                     variants="outlined"
                     size="small"
                     color="secondary" focused
-                    value={searchText}
+                    value={searchText2}
                     onChange={(e) => {
-                        setSearchText(e.target.value);
+                        setSearchText2(e.target.value);
                     }}
                     onKeyDown={(e) => {
                         if(e.keyCode == 13) {
                             e.preventDefault();
                             const params = {
-                                q: searchText,
+                                q: searchText2,
                                 format: 'json',
                                 addressdetails: 1,
                                 polygon_geojson: 0,

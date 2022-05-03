@@ -65,7 +65,6 @@ function App() {
     const locationSelection = [selectPosition?.lat, selectPosition?.lon];
 
     console.log("marker:" + marker);
-    var count = 0;
 
     if (marker) {
         map.removeLayer(marker);
@@ -74,7 +73,7 @@ function App() {
     if (selectPosition?.lat != null && selectPosition?.lon != null) {
         marker = new L.marker([selectPosition?.lat, selectPosition?.lon]);
         map.addLayer(marker);
-        count += 1;
+        map.flyTo([selectPosition?.lat, selectPosition?.lon]);
     }
     
 

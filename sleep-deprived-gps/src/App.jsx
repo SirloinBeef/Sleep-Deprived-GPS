@@ -65,7 +65,6 @@ function App() {
     const locationSelection = [selectPosition?.lat, selectPosition?.lon];
 
     console.log("marker:" + marker);
-    var count = 0;
 
     if (marker) {
         map.removeLayer(marker);

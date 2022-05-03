@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaf
 import L from 'leaflet';
 
 import './App.css'
-import SearchBox from './SeachBox';
+import SearchBox from './SearchBox';
 
 
 const center = [42.360081, -71.058884];
@@ -74,7 +74,7 @@ function App() {
     if (selectPosition?.lat != null && selectPosition?.lon != null) {
         marker = new L.marker([selectPosition?.lat, selectPosition?.lon]);
         map.addLayer(marker);
-        count += 1;
+        map.flyTo([selectPosition?.lat, selectPosition?.lon]);
     }
     
 
